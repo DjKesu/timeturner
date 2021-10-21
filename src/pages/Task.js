@@ -110,6 +110,7 @@ function Task() {
     setInputList([...inputList, { firstName: "", lastName: "" }]);
   };
 
+  //handleCompleteClick
   return (
     <div className="App">
       {inputList.map((x, i) => {
@@ -128,12 +129,13 @@ function Task() {
               value={x.lastName}
               onChange={e => handleInputChange(e, i)}
             />
-            <div className="btn-box">
-              {inputList.length !== 1 && <button
-                className="mr10"
-                onClick={() => handleRemoveClick(i)}>Remove</button>}
-              {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
-            </div>
+            {inputList.length !== 0 && <button
+              className="mr10"
+              onClick={() => handleRemoveClick(i)}>Remove</button>}
+            {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
+            {(inputList.length !== 0 && inputList.length - 1 !== i)&& <button
+              className="mr10"
+              onClick={() => handleRemoveClick(i)}>Complete</button>}
           </div>
         );
       })}
