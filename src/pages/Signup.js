@@ -12,6 +12,12 @@ import Grid from '@mui/material/Grid';
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+//firebase stuff 
+import { useAuth } from "../contexts/AuthContext";
+import { db } from "../firebase";
+import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
+//import state things
+import { useState } from 'react';
 
 function Copyright(props) {
   return (
@@ -29,14 +35,37 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
-  const handleSubmit = (event) => {
+  const {signup}  = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(event) {
+    setError("");
+    setLoading(true);
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    try {
+
+      const data = new FormData(event.currentTarget);
+
+      //await signup(data.get('email'), data.get('password'));
+      await setDoc(doc(db, "users", data.get('email')),{
+
+        name: data.get('name'),
+        email: data.get('email'),
+      })
+        .then((docRef) => {
+          console.log("Document written with ID: ");
+        })
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+          setError(error);
+        });
+        //redirect to "/tasks"
+        //window.location.href = "/tasks";
+    } catch (err) {
+      console.log(err);
+      setError("Error Signing Up: " + err);
+    }
   };
 
   return (
@@ -74,7 +103,7 @@ export default function SignInSide() {
               Sign Up
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <TextField
+              <TextField
                 margin="normal"
                 required
                 fullWidth
