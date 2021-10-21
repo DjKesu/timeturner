@@ -1,5 +1,6 @@
 import './App.css';
 import '@mui/material';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -7,6 +8,7 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
+import Task from './pages/Task'
 // import Task from "./pages/Task"
 
 function App() {
@@ -16,7 +18,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Login}/>
           <Route exact path="/Signup" component={Signup}/>
-          {/*<Route exact path="/task" component={Task}/> */}
+          <Route exact path="/task" component={Task}/> 
         </Switch>
       </Router>
     </div>
