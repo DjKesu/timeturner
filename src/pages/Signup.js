@@ -47,7 +47,7 @@ export default function SignInSide() {
 
       const data = new FormData(event.currentTarget);
 
-      //await signup(data.get('email'), data.get('password'));
+      await signup(data.get('email'), data.get('password'));
       await setDoc(doc(db, "users", data.get('email')),{
 
         name: data.get('name'),
@@ -61,7 +61,7 @@ export default function SignInSide() {
           setError(error);
         });
         //redirect to "/tasks"
-        //window.location.href = "/tasks";
+        window.location.href = "/tasks";
     } catch (err) {
       console.log(err);
       setError("Error Signing Up: " + err);
