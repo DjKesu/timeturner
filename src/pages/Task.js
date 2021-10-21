@@ -87,10 +87,9 @@ export default Task;*/
 
 
 import React, { useState } from "react";
- 
 function Task() {
   const [inputList, setInputList] = useState([{ firstName: "", lastName: "" }]);
- 
+
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -98,19 +97,19 @@ function Task() {
     list[index][name] = value;
     setInputList(list);
   };
- 
+
   // handle click event of the Remove button
   const handleRemoveClick = index => {
     const list = [...inputList];
     list.splice(index, 1);
     setInputList(list);
   };
- 
+
   // handle click event of the Add button
   const handleAddClick = () => {
     setInputList([...inputList, { firstName: "", lastName: "" }]);
   };
- 
+
   return (
     <div className="App">
       {inputList.map((x, i) => {
@@ -138,9 +137,8 @@ function Task() {
           </div>
         );
       })}
-      <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
     </div>
   );
 }
- 
+
 export default Task;
