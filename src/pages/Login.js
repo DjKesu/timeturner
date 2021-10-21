@@ -13,6 +13,14 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '../styles/Login.css';
 
+//auth 
+import { useAuth } from "../contexts/AuthContext";
+import { db } from "../firebase";
+import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
+//import state things
+import { useState } from 'react';
+
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -29,14 +37,28 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
-  const handleSubmit = (event) => {
+  const {login}  = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(event) {
+    setError("");
+    setLoading(true);
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    try {
+
+      const data = new FormData(event.currentTarget);
+
+      await login(data.get('email'), data.get('password'));
+      
+  } catch (error) {
+    setError(error.message);
+    setLoading(false);
+
+    //redirect to task
+    window.location.href = "/tasks";
+
+  }
   };
 
   return (
