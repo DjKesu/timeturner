@@ -78,20 +78,10 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                id="first name"
-                label="First Name"
-                name="first name"
-                autoComplete="first-name"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="last name"
-                label="Last Name"
-                name="last name"
-                autoComplete="last-name"
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
                 autoFocus
               />
               <TextField
