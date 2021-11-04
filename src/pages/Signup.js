@@ -147,9 +147,7 @@ export default function SignInSide() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2,
-                  backgroundColor: (t) =>
-                  "#535E4B"}}
+                sx={{ m: 1, color: "#535E4B" }}
               >
                 Sign Up
               </Button>

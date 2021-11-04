@@ -1,39 +1,35 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import "../styles/Login.css";
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import '../styles/Login.css';
 
-//auth
+//auth 
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
 //import state things
-import { useState } from "react";
+import { useState } from 'react';
+
 
 function Copyright(props) {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{" "}
+      </Link>{' '}
       {new Date().getFullYear()}
-      {"."}
+      {'.'}
     </Typography>
   );
 }
@@ -41,7 +37,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
-  const { login } = useAuth();
+  const {login}  = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -50,33 +46,34 @@ export default function SignInSide() {
     setLoading(true);
     event.preventDefault();
     try {
+
       const data = new FormData(event.currentTarget);
 
-      await login(data.get("email"), data.get("password"));
+      await login(data.get('email'), data.get('password'));
+      
+  } catch (error) {
+    setError(error.message);
+    setLoading(false);
 
-      window.location.href = "/Task";
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
+    //redirect to task
+    window.location.href = "/tasks";
 
-      //redirect to task
-    }
   }
+  };
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
-        <Grid
+        <Grid 
           item
           xs={false}
           sm={4}
           md={7}
           sx={{
-            backgroundImage: "url(https://source.unsplash.com/random)",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              "#C1C2AD",
+            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) ="#C1C2AD",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -86,9 +83,9 @@ export default function SignInSide() {
             sx={{
               my: 8,
               mx: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "#535E4B" }}></Avatar>
@@ -130,7 +127,6 @@ export default function SignInSide() {
                 label="Remember me"
               />
               <Button
-                href="/Task"
                 type="submit"
                 fullWidth
                 variant="contained"
