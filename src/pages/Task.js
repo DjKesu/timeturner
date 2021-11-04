@@ -161,7 +161,7 @@ function Task() {
 
   if (!currentUser) {
 
-    return <Redirect to="/signup" />;
+    return <Redirect to="/Signup" />;
   }
   else {
     console.log(currentUser.email);
