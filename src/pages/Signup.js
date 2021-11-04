@@ -60,8 +60,8 @@ export default function SignInSide() {
           console.error("Error adding document: ", error);
           setError(error);
         });
-        //redirect to "/tasks"
-        window.location.href = "/tasks";
+        //redirect to "/Task"
+        window.location.href = "/Task";
     } catch (err) {
       console.log(err);
       setError("Error Signing Up: " + err);
@@ -81,7 +81,7 @@ export default function SignInSide() {
             backgroundImage: 'url(https://source.unsplash.com/random)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+              "#C1C2AD",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -96,7 +96,7 @@ export default function SignInSide() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: '#535E4B' }}>
               {/* <LockOutlinedIcon /> */}
             </Avatar>
             <Typography component="h1" variant="h5"
@@ -143,7 +143,6 @@ export default function SignInSide() {
                 label="Remember me"
               />
               <Button
-                href="/Task" 
                 type="submit"
                 fullWidth
                 variant="contained"

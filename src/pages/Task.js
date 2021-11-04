@@ -8,7 +8,7 @@ import { ThemeProvider, createTheme } from "@mui/system";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const theme = createTheme({
   palette: {
@@ -85,6 +85,16 @@ function Task() {
     fetchData();
   }, []);
 
+  async function updateDatabase() {
+    await setDoc(doc(db, "users", currentUser.email), {
+      tasks: [
+        {
+          list: inputList,
+        },
+      ],
+    });
+  }
+
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -101,8 +111,11 @@ function Task() {
   };
 
   // handle click event of the Add button
-  const handleAddClick = () => {
+  const handleAddClick = (e) => {
+    e.preventDefault();
     setInputList([...inputList, { taskName: "", duration: "" }]);
+
+    updateDatabase();
   };
 
   //handleCompleteClick
