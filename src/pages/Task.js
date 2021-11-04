@@ -116,6 +116,11 @@ const theme = createTheme({
 const currentDate = new Date().toISOString().substring(0, 10);
 function Title(props) {
   const { currentUser } = useAuth();
+  // handle logout
+  const handleLogoutClick = () => {
+    // Implement logout stuff here
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ width: "100%" }}>
@@ -126,6 +131,7 @@ function Title(props) {
           November 4, 2021
         </Typography>
       </Box>
+      {<button onClick={handleLogoutClick}>Log Out</button>}
     </ThemeProvider>
   );
 }
