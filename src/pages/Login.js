@@ -73,7 +73,7 @@ export default function SignInSide() {
           sx={{
             backgroundImage: 'url(https://source.unsplash.com/random)',
             backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) ="#C1C2AD",
+            backgroundColor: (t) =>"#C1C2AD",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
