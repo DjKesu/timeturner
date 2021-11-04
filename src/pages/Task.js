@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { TextField } from "@mui/material";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
-import { ThemeProvider, createTheme } from "@mui/system";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { db } from "../firebase";
@@ -50,7 +50,7 @@ function Title(props) {
         {props.name}'s To Do List
       </Typography>
       <Typography variant="h2" fontSize="title" component="div" gutterBottom>
-        November 4, 2021
+        {currentDate}
       </Typography>
       {<button onClick={handleLogoutClick}>Log Out</button>}
     </ThemeProvider>
@@ -85,12 +85,8 @@ function Task() {
   }, []);
 
   async function updateDatabase() {
-    await setDoc(doc(db, "users", currentUser.email), {
-      tasks: [
-        {
-          list: inputList,
-        },
-      ],
+    await setDoc(doc(db, "tasks", currentUser.email), {
+      list: inputList
     });
   }
 
@@ -112,7 +108,7 @@ function Task() {
   // handle click event of the Add button
   const handleAddClick = (e) => {
     e.preventDefault();
-    setInputList([...inputList, { taskName: "e.taskName", duration: "e.duration" }]);
+    setInputList([...inputList, { taskName: e.taskName, duration: e.duration, difficulty: e.diffculty, enjoyment: e.enjoyment }]);
     updateDatabase();
     e = "";
   };
