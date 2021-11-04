@@ -1,97 +1,12 @@
-/*import React from "react";
-import "../styles/Task.css";
-
-function Todo({ todo, index, completeTodo, removeTodo }) {
-  return (
-    <div
-      className="todo"
-      style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}
-    >
-      {todo.text}
-      <div>
-        <button onClick={() => completeTodo(index)}>Complete</button>
-        <button onClick={() => removeTodo(index)}>x</button>
-      </div>
-    </div>
-  );
-}
-
-function TodoForm({ addTodo }) {
-  const [value, setValue] = React.useState("");
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (!value) return;
-    addTodo(value);
-    setValue("");
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        className="input"
-        value={this.useState.value}
-        onChange={e => setValue(e.target.value)}
-      />
-        <input
-        type="text"
-        className="time"
-        value={this.useState.value}
-        onChange={f => setValue(f.target.value)}
-      />
-    </form>
-  );
-}
-
-function Task() {
-  const [todos, setTodos] = React.useState([
-  ]);
-
-  const addTodo = text => {
-    const newTodos = [...todos, { text }];
-    setTodos(newTodos);
-  };
-
-  const completeTodo = index => {
-    const newTodos = [...todos];
-    newTodos[index].isCompleted = true;
-    setTodos(newTodos);
-  };
-
-  const removeTodo = index => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
-  };
-
-  return (
-    <div className="app">
-      <div className="todo-list">
-        {todos.map((todo, index) => (
-          <Todo
-            key={index}
-            index={index}
-            todo={todo}
-            completeTodo={completeTodo}
-            removeTodo={removeTodo}
-          />
-        ))}
-        <TodoForm addTodo={addTodo} />
-      </div>
-    </div>
-  );
-}
-
-export default Task;*/
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext.js";
 import { Redirect } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { ThemeProvider, createTheme } from "@mui/system";
+import { db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const theme = createTheme({
   palette: {
@@ -113,7 +28,9 @@ const theme = createTheme({
     },
   },
 });
+
 const currentDate = new Date().toISOString().substring(0, 10);
+
 function Title(props) {
   const { currentUser, logout } = useAuth();
   // handle logout
@@ -128,7 +45,7 @@ function Title(props) {
     <ThemeProvider theme={theme}>
       <Box sx={{ width: "100%" }}>
         <Typography variant="h1" fontSize="title" component="div" gutterBottom>
-          {currentUser.email}'s To Do List
+          {props.name}'s To Do List
         </Typography>
         <Typography variant="h2" fontSize="title" component="div" gutterBottom>
           November 4, 2021
@@ -140,8 +57,31 @@ function Title(props) {
 }
 
 function Task() {
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({});
   const [inputList, setInputList] = useState([{ taskName: "", duration: "" }]);
   const { currentUser } = useAuth();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("fetching data");
+      try {
+        const docRef = doc(db, "users", currentUser.email);
+        await getDoc(docRef)
+          .then((docSnap) => {
+            console.log(docSnap.data());
+            setUser(docSnap.data());
+          })
+          .then((banana) => {
+            setLoading(false);
+            console.log("user:", user);
+          });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
+  }, []);
 
   // handle input change
   const handleInputChange = (e, index) => {
@@ -168,57 +108,59 @@ function Task() {
   if (!currentUser) {
     return <Redirect to="/Signup" />;
   } else {
-    console.log(currentUser.email);
+    if (user) {
+      return (
+        <ThemeProvider theme={theme}>
+          <Box sx={{ bgcolor: "background", width: "100%" }}>
+            <div className="App">
+              <Title sx={{ mt: 5, height: "10%" }} name={user.name} />
+              <div title="Taskpage"></div>
 
-    return (
-      <ThemeProvider theme={theme}>
-        <Box sx={{ bgcolor: "background", width: "100%" }}>
-          <div className="App">
-            <Title sx={{ mt: 5, height: "10%" }} />
-            <div title="Taskpage"></div>
-
-            {inputList.map((x, i) => {
-              return (
-                <div className="box">
-                  <input
-                    name="taskName"
-                    placeholder="Enter Task Name"
-                    value={x.taskName}
-                    onChange={(e) => handleInputChange(e, i)}
-                  />
-                  <input
-                    className="ml10"
-                    name="duration"
-                    placeholder="Duration (hours)"
-                    value={x.duration}
-                    onChange={(e) => handleInputChange(e, i)}
-                  />
-                  {inputList.length !== 0 && (
-                    <button
-                      className="mr10"
-                      onClick={() => handleRemoveClick(i)}
-                    >
-                      Remove
-                    </button>
-                  )}
-                  {inputList.length - 1 === i && (
-                    <button onClick={handleAddClick}>Add</button>
-                  )}
-                  {inputList.length !== 0 && inputList.length - 1 !== i && (
-                    <button
-                      className="mr10"
-                      onClick={() => handleRemoveClick(i)}
-                    >
-                      Complete
-                    </button>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </Box>
-      </ThemeProvider>
-    );
+              {inputList.map((x, i) => {
+                return (
+                  <div className="box">
+                    <input
+                      name="taskName"
+                      placeholder="Enter Task Name"
+                      value={x.taskName}
+                      onChange={(e) => handleInputChange(e, i)}
+                    />
+                    <input
+                      className="ml10"
+                      name="duration"
+                      placeholder="Duration (hours)"
+                      value={x.duration}
+                      onChange={(e) => handleInputChange(e, i)}
+                    />
+                    {inputList.length !== 0 && (
+                      <button
+                        className="mr10"
+                        onClick={() => handleRemoveClick(i)}
+                      >
+                        Remove
+                      </button>
+                    )}
+                    {inputList.length - 1 === i && (
+                      <button onClick={handleAddClick}>Add</button>
+                    )}
+                    {inputList.length !== 0 && inputList.length - 1 !== i && (
+                      <button
+                        className="mr10"
+                        onClick={() => handleRemoveClick(i)}
+                      >
+                        Complete
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </Box>
+        </ThemeProvider>
+      );
+    } else {
+      return "loading";
+    }
   }
 }
 
