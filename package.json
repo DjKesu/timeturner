@@ -39,9 +39,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@testing-library/dom": "^8.11.0",
-    "typescript": "^4.4.4"
   }
 }

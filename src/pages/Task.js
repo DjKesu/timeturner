@@ -5,26 +5,29 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { ThemeProvider, createTheme } from "@mui/system";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 const theme = createTheme({
   palette: {
-    background: "#403F3C",
-    text: "#F5CD89",
+    bg: "#C1C2AD",
+    background: "#E9E6E2",
+    text: "#331E38",
   },
   typography: {
     h1: {
       fontSize: "6rem",
       fontFamily: "Segoe UI",
-      fontWeight: "350",
-      color: "#F5CD89",
+      fontWeight: "400",
+      color: "#535E4B",
     },
     h2: {
       fontSize: "2rem",
       fontFamily: "Segoe UI",
       fontWeight: "500",
-      color: "#F5CD89",
+      color: "#7c9c96",
     },
   },
 });
@@ -32,15 +35,14 @@ const theme = createTheme({
 const currentDate = new Date().toISOString().substring(0, 10);
 
 function Title(props) {
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useAuth();
   // handle logout
-  const handleLogoutClick = async () => {
+  /*const handleLogoutClick = async () => {
     // Implement logout stuff here
     await logout();
 
     window.location.href = "/";
-  };
-
+  }; */
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ width: "100%" }}>
