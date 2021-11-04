@@ -168,7 +168,7 @@ function Task() {
   if (!currentUser) {
 <<<<<<< HEAD
 
-    return <Redirect to="/login" />;
+    return <Redirect to="/signup" />;
   }
   else {
 =======
