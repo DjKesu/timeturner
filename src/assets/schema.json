@@ -1,0 +1,18 @@
+{
+    "users":[{
+        "name":"KK",
+        "email":"@yahoo.com",
+        "password":"LSNjcndc //Encrypted", 
+        "login-status":"online/offline",
+        "tasks":[{
+            "list":[{
+                "nameoftask":"Make life productive",
+                "time":"Duration",
+                "difficulty":"energy level",
+                "willingness":"Likeability towards the task",
+                "status":"To-do,doing,done",
+                "task-status":"Created/Updated/Deleted/Done"
+                }]
+        }]
+    }]
+}

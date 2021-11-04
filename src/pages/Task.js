@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext.js";
 import { Redirect } from "react-router-dom";
 import Typography from "@mui/material/Typography";
+import { TextField } from "@mui/material";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
-import { ThemeProvider, createTheme } from "@mui/system";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { db } from "../firebase";
@@ -40,27 +41,11 @@ function Title(props) {
   const handleLogoutClick = async () => {
     await logout();
 
-    window.location.href = "/";
-  };
-  return (
-    <ThemeProvider theme={theme}>
-      <Box sx={{ width: "100%" }}>
-        <Typography variant="h1" fontSize="title" component="div" gutterBottom>
-          {props.name}'s To Do List
-        </Typography>
-        <Typography variant="h2" fontSize="title" component="div" gutterBottom>
-          November 4, 2021
-        </Typography>
-      </Box>
-      {<button onClick={handleLogoutClick}>Log Out</button>}
-    </ThemeProvider>
-  );
-}
 
 function Task() {
+  const [inputList, setInputList] = useState([{ taskName: "", duration: "", difficulty: "", enjoyment: "" }]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
-  const [inputList, setInputList] = useState([{ taskName: "", duration: "" }]);
   const { currentUser } = useAuth();
 
   useEffect(() => {
@@ -85,12 +70,8 @@ function Task() {
   }, []);
 
   async function updateDatabase() {
-    await setDoc(doc(db, "users", currentUser.email), {
-      tasks: [
-        {
-          list: inputList,
-        },
-      ],
+    await setDoc(doc(db, "tasks", currentUser.email), {
+      list: inputList
     });
   }
 
@@ -112,69 +93,105 @@ function Task() {
   // handle click event of the Add button
   const handleAddClick = (e) => {
     e.preventDefault();
-    setInputList([...inputList, { taskName: "e.taskName", duration: "e.duration" }]);
+    setInputList([...inputList, { taskName: e.taskName, duration: e.duration, difficulty: e.diffculty, enjoyment: e.enjoyment }]);
     updateDatabase();
-    e="";
+    e = "";
   };
 
   //handleCompleteClick
 
   if (!currentUser) {
-    return <Redirect to="/Signup" />;
-  } else {
-    if (user) {
+
+    return <Redirect to="/login" />;
+  }
+  else {
+    console.log(currentUser.email);
+    function Title(props) {
+      const { currentUser, logout } = useAuth();
+      // handle logout
+      const handleLogoutClick = async () => {
+        // Implement logout stuff here
+        await logout();
+
+        window.location.href = "/";
+      };
       return (
         <ThemeProvider theme={theme}>
-          <Box sx={{ bgcolor: "background", width: "100%" }}>
-            <div className="App">
-              <Title sx={{ mt: 5, height: "10%" }} name={user.name} />
-              <div title="Taskpage"></div>
-
-              {inputList.map((x, i) => {
-                return (
-                  <div className="box">
-                    <input
-                      name="taskName"
-                      placeholder="Enter Task Name"
-                      value={x.taskName}
-                      onChange={(e) => handleInputChange(e, i)}
-                    />
-                    <input
-                      className="ml10"
-                      name="duration"
-                      placeholder="Duration (hours)"
-                      value={x.duration}
-                      onChange={(e) => handleInputChange(e, i)}
-                    />
-                    {inputList.length !== 0 && (
-                      <button
-                        className="mr10"
-                        onClick={() => handleRemoveClick(i)}
-                      >
-                        Remove
-                      </button>
-                    )}
-                    {inputList.length - 1 === i && (
-                      <button onClick={handleAddClick}>Add</button>
-                    )}
-                    {inputList.length !== 0 && inputList.length - 1 !== i && (
-                      <button
-                        className="mr10"
-                        onClick={() => handleRemoveClick(i)}
-                      >
-                        Complete
-                      </button>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </Box>
+          <Typography variant='h1' fontSize='title' component="div" gutterBottom>
+            {user.name}'s To Do list
+          </Typography>
+          <Typography variant="h2" fontSize="title" component="div" gutterBottom>
+            {currentDate}
+          </Typography>
+          {<button onClick={handleLogoutClick}>Log Out</button>}
         </ThemeProvider>
       );
-    } else {
-      return "loading";
     }
+    return (
+      <ThemeProvider theme={theme}>
+        <div title="Taskpage">
+        </div>
+        <Box component="main" sx={{ backgroundColor: 'bg', flexGrow: 1, height: '100vh', overflow: 'auto', }} >
+
+          <Paper sx={{ mx: 'auto', elevation: 1, bgcolor: 'background', width: '80%', mt: 3 }}>
+            <Title />
+          </Paper>
+
+          {inputList.map((x, i) => {
+            return (
+              <div className="box">
+                <TextField margin="normal"
+                  required
+                  sx={{ bgcolor: 'background', borderRadius: 1 }}
+                  width='30%'
+                  name="taskName"
+                  placeholder="Enter Task Name"
+                  value={x.taskName}
+                  onChange={e => handleInputChange(e, i)}
+                />
+
+                <TextField margin="normal"
+                  required
+                  sx={{ bgcolor: 'background', borderRadius: 1 }}
+                  width='30%'
+                  name="duration"
+                  placeholder="Duration (hours)"
+                  value={x.duration}
+                  onChange={e => handleInputChange(e, i)}
+                />
+
+                <TextField margin="normal"
+                  required
+                  sx={{ bgcolor: 'background', borderRadius: 1 }}
+                  width='30%'
+                  name="difficulty"
+                  placeholder="Difficulty (1-10)"
+                  value={x.difficulty}
+                  onChange={e => handleInputChange(e, i)}
+                />
+
+                <TextField margin="normal"
+                  required
+                  sx={{ bgcolor: 'background', borderRadius: 1 }}
+                  width='30%'
+                  name="enjoyment"
+                  placeholder="Enjoyment level (1-10)"
+                  value={x.enjoyment}
+                  onChange={e => handleInputChange(e, i)}
+                />
+
+                {inputList.length !== 0 && <button
+                  onClick={() => handleRemoveClick(i)}>Remove</button>}
+                {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
+                {(inputList.length !== 0 && inputList.length - 1 !== i) && <button
+                  onClick={() => handleRemoveClick(i)}>Complete</button>}
+              </div>
+            );
+          })}
+
+        </Box>
+      </ThemeProvider>
+    );
   }
 }
 
