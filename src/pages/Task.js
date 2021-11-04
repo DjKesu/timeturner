@@ -1,66 +1,98 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext.js";
 import { Redirect } from "react-router-dom";
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import Box from '@mui/material/Box';
-import { ThemeProvider, createTheme } from '@mui/material';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import "../styles/Login.css";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { borderRadius } from "@mui/system";
+import Typography from "@mui/material/Typography";
+import { TextField } from "@mui/material";
+import Link from "@mui/material/Link";
+import Box from "@mui/material/Box";
+import { ThemeProvider, createTheme } from "@mui/system";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import { db } from "../firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const theme = createTheme({
   palette: {
-    bg: '#C1C2AD',
-    background: '#E9E6E2',
-    text: '#331E38',
-
+    bg: "#C1C2AD",
+    background: "#E9E6E2",
+    text: "#331E38",
   },
   typography: {
     h1: {
-      fontSize: '6rem',
-      fontFamily: 'Segoe UI',
-      fontWeight: '400',
-      color: '#535E4B',
+      fontSize: "6rem",
+      fontFamily: "Segoe UI",
+      fontWeight: "400",
+      color: "#535E4B",
     },
     h2: {
-      fontSize: '2rem',
-      fontFamily: 'Segoe UI',
-      fontWeight: '500',
-      color: '#7c9c96',
+      fontSize: "2rem",
+      fontFamily: "Segoe UI",
+      fontWeight: "500",
+      color: "#7c9c96",
     },
   },
 });
 
+const currentDate = new Date().toISOString().substring(0, 10);
 
 function Title(props) {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   // handle logout
-  /*const handleLogoutClick = async () => {
+  const handleLogoutClick = async () => {
     // Implement logout stuff here
     await logout();
 
     window.location.href = "/";
-  }; */
+  };
   return (
-
     <ThemeProvider theme={theme}>
       <Typography variant='h1' fontSize='title' component="div" gutterBottom>
         {props.name}'s To Do List
       </Typography>
+      <Typography variant="h2" fontSize="title" component="div" gutterBottom>
+        November 4, 2021
+      </Typography>
+      {<button onClick={handleLogoutClick}>Log Out</button>}
     </ThemeProvider>
-
-  )
+  );
 }
-
-
 
 function Task() {
   const [inputList, setInputList] = useState([{ taskName: "", duration: "", difficulty: "", enjoyment: "" }]);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({});
   const { currentUser } = useAuth();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("fetching data");
+      try {
+        const docRef = doc(db, "users", currentUser.email);
+        await getDoc(docRef)
+          .then((docSnap) => {
+            console.log(docSnap.data());
+            setUser(docSnap.data());
+          })
+          .then(() => {
+            setLoading(false);
+            console.log("user:", user);
+          });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  async function updateDatabase() {
+    await setDoc(doc(db, "users", currentUser.email), {
+      tasks: [
+        {
+          list: inputList,
+        },
+      ],
+    });
+  }
 
   // handle input change
   const handleInputChange = (e, index) => {
@@ -78,8 +110,11 @@ function Task() {
   };
 
   // handle click event of the Add button
-  const handleAddClick = () => {
-    setInputList([...inputList, { taskName: "", duration: "" }]);
+  const handleAddClick = (e) => {
+    e.preventDefault();
+    setInputList([...inputList, { taskName: "e.taskName", duration: "e.duration" }]);
+    updateDatabase();
+    e = "";
   };
 
   //handleCompleteClick
