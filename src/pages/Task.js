@@ -38,7 +38,6 @@ function Title(props) {
   const { currentUser, logout } = useAuth();
   // handle logout
   const handleLogoutClick = async () => {
-    // Implement logout stuff here
     await logout();
 
     window.location.href = "/";
