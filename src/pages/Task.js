@@ -74,7 +74,7 @@ function Task() {
             console.log(docSnap.data());
             setUser(docSnap.data());
           })
-          .then((banana) => {
+          .then(() => {
             setLoading(false);
             console.log("user:", user);
           });
@@ -113,9 +113,9 @@ function Task() {
   // handle click event of the Add button
   const handleAddClick = (e) => {
     e.preventDefault();
-    setInputList([...inputList, { taskName: "", duration: "" }]);
-
+    setInputList([...inputList, { taskName: "e.taskName", duration: "e.duration" }]);
     updateDatabase();
+    e="";
   };
 
   //handleCompleteClick

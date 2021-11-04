@@ -61,7 +61,7 @@ export default function SignInSide() {
           setError(error);
         });
         //redirect to "/Task"
-        window.location.href = "/Task";
+        window.location.href = "/tasks";
     } catch (err) {
       console.log(err);
       setError("Error Signing Up: " + err);
