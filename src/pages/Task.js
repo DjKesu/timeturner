@@ -7,6 +7,10 @@ import Box from '@mui/material/Box';
 import { ThemeProvider, createTheme } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import "../styles/Login.css";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { borderRadius } from "@mui/system";
 
 const theme = createTheme({
   palette: {
@@ -45,7 +49,7 @@ function Title(props) {
 
     <ThemeProvider theme={theme}>
       <Typography variant='h1' fontSize='title' component="div" gutterBottom>
-        {currentUser.name}'s To Do List
+        {props.name}'s To Do List
       </Typography>
     </ThemeProvider>
 
@@ -55,7 +59,7 @@ function Title(props) {
 
 
 function Task() {
-  const [inputList, setInputList] = useState([{ taskName: "", duration: "" }]);
+  const [inputList, setInputList] = useState([{ taskName: "", duration: "", difficulty: "", enjoyment: "" }]);
   const { currentUser } = useAuth();
 
   // handle input change
@@ -100,25 +104,50 @@ function Task() {
           {inputList.map((x, i) => {
             return (
               <div className="box">
-                <input
+                <TextField margin="normal"
+                  required
+                  sx={{ bgcolor: 'background', borderRadius: 1 }}
+                  width='30%'
                   name="taskName"
                   placeholder="Enter Task Name"
                   value={x.taskName}
                   onChange={e => handleInputChange(e, i)}
                 />
-                <input
-                  className="ml10"
+
+                <TextField margin="normal"
+                  required
+                  sx={{ bgcolor: 'background', borderRadius: 1 }}
+                  width='30%'
                   name="duration"
                   placeholder="Duration (hours)"
                   value={x.duration}
                   onChange={e => handleInputChange(e, i)}
                 />
+
+                <TextField margin="normal"
+                  required
+                  sx={{ bgcolor: 'background', borderRadius: 1 }}
+                  width='30%'
+                  name="difficulty"
+                  placeholder="Difficulty (1-10)"
+                  value={x.difficulty}
+                  onChange={e => handleInputChange(e, i)}
+                />
+
+                <TextField margin="normal"
+                  required
+                  sx={{ bgcolor: 'background', borderRadius: 1 }}
+                  width='30%'
+                  name="enjoyment"
+                  placeholder="Enjoyment level (1-10)"
+                  value={x.enjoyment}
+                  onChange={e => handleInputChange(e, i)}
+                />
+
                 {inputList.length !== 0 && <button
-                  className="mr10"
                   onClick={() => handleRemoveClick(i)}>Remove</button>}
                 {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
                 {(inputList.length !== 0 && inputList.length - 1 !== i) && <button
-                  className="mr10"
                   onClick={() => handleRemoveClick(i)}>Complete</button>}
               </div>
             );
