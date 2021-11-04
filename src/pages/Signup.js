@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-//firebase stuff 
+//firebase stuff
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
@@ -99,11 +99,13 @@ export default function SignInSide() {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               {/* <LockOutlinedIcon /> */}
             </Avatar>
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5"
+            sx={{ m: 1, color: "#535E4B" }}>
               Sign Up
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
+              sx={{ m: 1, color: "#535E4B" }}
                 margin="normal"
                 required
                 fullWidth
@@ -114,6 +116,7 @@ export default function SignInSide() {
                 autoFocus
               />
               <TextField
+              sx={{ m: 1, color: "#535E4B" }}
                 margin="normal"
                 required
                 fullWidth
@@ -124,6 +127,7 @@ export default function SignInSide() {
                 autoFocus
               />
               <TextField
+              sx={{ m: 1, color: "#535E4B" }}
                 margin="normal"
                 required
                 fullWidth
@@ -134,14 +138,18 @@ export default function SignInSide() {
                 autoComplete="current-password"
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={<Checkbox value="remember" />}
+                sx={{ m: 1, color: "#535E4B" }}
                 label="Remember me"
               />
               <Button
+                href="/Task" 
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2,
+                  backgroundColor: (t) =>
+                  "#535E4B"}}
               >
                 Sign Up
               </Button>
