@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 import { ThemeProvider, createTheme } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import { db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 const theme = createTheme({
   palette: {
@@ -45,7 +47,7 @@ function Title(props) {
 
     <ThemeProvider theme={theme}>
       <Typography variant='h1' fontSize='title' component="div" gutterBottom>
-        {currentUser.name}'s To Do List
+        {currentUser.email}'s To Do List
       </Typography>
     </ThemeProvider>
 
@@ -55,8 +57,17 @@ function Title(props) {
 
 
 function Task() {
+
   const [inputList, setInputList] = useState([{ taskName: "", duration: "" }]);
   const { currentUser } = useAuth();
+
+  async function updateDatabase() {
+    await setDoc(doc(db, "users", currentUser.email), {
+      "tasks": [{
+        "list": inputList
+      }]
+    });
+  };
 
   // handle input change
   const handleInputChange = (e, index) => {
@@ -74,8 +85,11 @@ function Task() {
   };
 
   // handle click event of the Add button
-  const handleAddClick = () => {
+  const handleAddClick = e => {
+    e.preventDefault();
     setInputList([...inputList, { taskName: "", duration: "" }]);
+
+    updateDatabase();
   };
 
   //handleCompleteClick
