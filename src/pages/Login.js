@@ -76,14 +76,12 @@ export default function SignInSide() {
             backgroundImage: "url(https://source.unsplash.com/random)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
+              "#C1C2AD",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid  item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
               my: 8,
@@ -93,17 +91,19 @@ export default function SignInSide() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
+            <Avatar sx={{ m: 1, bgcolor: "#535E4B" }}></Avatar>
+            <Typography component="h1" variant="h5"
+            sx={{ m: 1, color: "#535E4B" }}>
+              Login
             </Typography>
             <Box
               component="form"
               noValidate
               onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
+              sx={{ mt: 1,}}
             >
               <TextField
+                sx={{ color: "#535E4B" }} 
                 margin="normal"
                 required
                 fullWidth
@@ -114,6 +114,7 @@ export default function SignInSide() {
                 autoFocus
               />
               <TextField
+                sx={{ color: "#535E4B" }} 
                 margin="normal"
                 required
                 fullWidth
@@ -124,7 +125,8 @@ export default function SignInSide() {
                 autoComplete="current-password"
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={<Checkbox value="remember" />}
+                sx={{ color: "#535E4B" }} 
                 label="Remember me"
               />
               <Button
@@ -132,18 +134,22 @@ export default function SignInSide() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2,
+                  backgroundColor: (t) =>
+                  "#535E4B"}}
               >
-                Sign In
+                Login
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href="#" variant="body2"
+                  sx={{ m: 1, color: "#535E4B" }}>
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/Signup" variant="body2">
+                  <Link href="/Signup" variant="body2"
+                  sx={{ m: 1, color: "#535E4B" }}>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
