@@ -35,27 +35,7 @@ const theme = createTheme({
 
 const currentDate = new Date().toISOString().substring(0, 10);
 
-function Title(props) {
-  const { currentUser, logout } = useAuth();
-  // handle logout
-  const handleLogoutClick = async () => {
-    // Implement logout stuff here
-    await logout();
 
-    window.location.href = "/";
-  };
-  return (
-    <ThemeProvider theme={theme}>
-      <Typography variant='h1' fontSize='title' component="div" gutterBottom>
-        {props.name}'s To Do List
-      </Typography>
-      <Typography variant="h2" fontSize="title" component="div" gutterBottom>
-        {currentDate}
-      </Typography>
-      {<button onClick={handleLogoutClick}>Log Out</button>}
-    </ThemeProvider>
-  );
-}
 
 function Task() {
   const [inputList, setInputList] = useState([{ taskName: "", duration: "", difficulty: "", enjoyment: "" }]);
@@ -121,7 +101,27 @@ function Task() {
   }
   else {
     console.log(currentUser.email);
+    function Title(props) {
+      const { currentUser, logout } = useAuth();
+      // handle logout
+      const handleLogoutClick = async () => {
+        // Implement logout stuff here
+        await logout();
 
+        window.location.href = "/";
+      };
+      return (
+        <ThemeProvider theme={theme}>
+          <Typography variant='h1' fontSize='title' component="div" gutterBottom>
+            {user.name}'s To Do list
+          </Typography>
+          <Typography variant="h2" fontSize="title" component="div" gutterBottom>
+            {currentDate}
+          </Typography>
+          {<button onClick={handleLogoutClick}>Log Out</button>}
+        </ThemeProvider>
+      );
+    }
     return (
       <ThemeProvider theme={theme}>
         <div title="Taskpage">
