@@ -32,9 +32,15 @@ const theme = createTheme({
 });
 
 
-
 function Title(props) {
   const { currentUser } = useAuth();
+  // handle logout
+  /*const handleLogoutClick = async () => {
+    // Implement logout stuff here
+    await logout();
+
+    window.location.href = "/";
+  }; */
   return (
 
     <ThemeProvider theme={theme}>
@@ -42,7 +48,8 @@ function Title(props) {
         {currentUser.name}'s To Do List
       </Typography>
     </ThemeProvider>
-  );
+
+  )
 }
 
 
@@ -60,7 +67,7 @@ function Task() {
   };
 
   // handle click event of the Remove button
-  const handleRemoveClick = index => {
+  const handleRemoveClick = (index) => {
     const list = [...inputList];
     list.splice(index, 1);
     setInputList(list);
@@ -75,7 +82,7 @@ function Task() {
 
   if (!currentUser) {
 
-    return <Redirect to="/signup" />;
+    return <Redirect to="/login" />;
   }
   else {
     console.log(currentUser.email);
