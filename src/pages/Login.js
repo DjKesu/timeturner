@@ -71,7 +71,7 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundImage: "url(lake.jpeg)",
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>"#C1C2AD",
             backgroundSize: "cover",
