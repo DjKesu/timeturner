@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '../styles/Login.css';
 
-//auth 
+//auth
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
@@ -50,13 +50,13 @@ export default function SignInSide() {
       const data = new FormData(event.currentTarget);
 
       await login(data.get('email'), data.get('password'));
-      
+
   } catch (error) {
     setError(error.message);
     setLoading(false);
 
     //redirect to task
-    window.location.href = "/tasks";
+    window.location.href = "/Task";
 
   }
   };
@@ -65,7 +65,7 @@ export default function SignInSide() {
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
-        <Grid 
+        <Grid
           item
           xs={false}
           sm={4}

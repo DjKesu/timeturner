@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-//firebase stuff 
+//firebase stuff
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
@@ -60,8 +60,8 @@ export default function SignInSide() {
           console.error("Error adding document: ", error);
           setError(error);
         });
-        //redirect to "/tasks"
-        window.location.href = "/tasks";
+        //redirect to "/Task"
+        window.location.href = "/Task";
     } catch (err) {
       console.log(err);
       setError("Error Signing Up: " + err);
