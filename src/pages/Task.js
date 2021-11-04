@@ -35,14 +35,14 @@ const theme = createTheme({
 const currentDate = new Date().toISOString().substring(0, 10);
 
 function Title(props) {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   // handle logout
-  /*const handleLogoutClick = async () => {
+  const handleLogoutClick = async () => {
     // Implement logout stuff here
     await logout();
 
     window.location.href = "/";
-  }; */
+  };
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ width: "100%" }}>
