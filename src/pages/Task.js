@@ -34,14 +34,6 @@ const theme = createTheme({
 });
 
 const currentDate = new Date().toISOString().substring(0, 10);
-
-function Title(props) {
-  const { currentUser, logout } = useAuth();
-  // handle logout
-  const handleLogoutClick = async () => {
-    await logout();
-
-
 function Task() {
   const [inputList, setInputList] = useState([{ taskName: "", duration: "", difficulty: "", enjoyment: "" }]);
   const [loading, setLoading] = useState(true);
