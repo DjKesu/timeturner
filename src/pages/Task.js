@@ -9,7 +9,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { db } from "../firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 import { printTaskList, sortedTasks } from "../functions/taskOptimization.js";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -91,6 +91,11 @@ function Task() {
       }
     };
     fetchData();
+    const unsub = onSnapshot(doc(db, "users", currentUser.email), (doc) => {
+      const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+      console.log(source, " data: ", doc.data());
+      setUser(doc.data());
+    });
   }, []);
   async function updateDatabase() {
     await setDoc(doc(db, "tasks", currentUser.email), {
