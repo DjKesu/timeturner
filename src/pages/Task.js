@@ -157,6 +157,8 @@ function Task() {
           </Paper>
 
           <Paper sx={{ mx: 'auto', elevation: 1, bgcolor: 'background', width: '80%', height:'10%', mt: 2 }}>
+          <Typography sx={{marginRight: "57.4vw"}}>Current Task: 
+          </Typography>
           {<button style ={{backgroundColor: "#7c9c96", border: "none", borderRadius: 5, color: "white", 
             padding: "1vw 4vw", textAlign: "center", textdecoration: "none", 
             display: "inlineblock", cursor: "default", marginLeft: "57.4vw" ,marginTop:"0.8vw",fontsize: "16px"}} 
@@ -165,6 +167,8 @@ function Task() {
             padding: "1vw 4vw", textAlign: "center", textdecoration: "none", 
             display: "inlineblock", cursor: "default", marginLeft: "0.5vw",ontsize: "16px"}} 
             onClick={refresh}>Refresh</button>}
+
+            {/* value= inputlist[0].TaskName */}
           </Paper>
           
 
