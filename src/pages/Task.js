@@ -15,6 +15,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
+
+
 const theme = createTheme({
   palette: {
     bg: "#C1C2AD",
@@ -125,13 +127,18 @@ function Task() {
 
       return (
         <ThemeProvider theme={theme}>
+        {<button style ={{backgroundColor: "#7c9c96", border: "none", borderRadius: 5, color: "white", 
+            padding: "1vw 2vw", textAlign: "center", textdecoration: "none", 
+            display: "inlineblock", marginLeft: "71.7vw", cursor: "default", marginTop:"0.3vw", fontsize: "16px"}} 
+            onClick={handleLogoutClick}>Log Out</button>}
+
+        
           <Typography variant='h1' fontSize='title' component="div" gutterBottom>
             {user.name}'s To Do list
           </Typography>
           <Typography variant="h2" fontSize="title" component="div" gutterBottom>
             {currentDate}
           </Typography>
-          {<button onClick={handleLogoutClick}>Log Out</button>}
         </ThemeProvider>
       );
     }
@@ -144,21 +151,27 @@ function Task() {
           <Paper sx={{ mx: 'auto', elevation: 1, bgcolor: 'background', width: '80%', mt: 3 }}>
             <Title />
           </Paper>
-          {<button onClick={sortInputList}>Sort</button>}
+
+          <Paper sx={{ mx: 'auto', elevation: 1, bgcolor: 'background', width: '80%', height:'10%', mt: 2 }}>
+          {<button style ={{backgroundColor: "#7c9c96", border: "none", borderRadius: 5, color: "white", 
+            padding: "1vw 4vw", textAlign: "center", textdecoration: "none", 
+            display: "inlineblock", marginRight: "69vw", cursor: "default", marginTop:"0.8vw", fontsize: "16px"}} 
+            onClick={sortInputList}>Sort</button>}
+          </Paper>
+
           {inputList.map((x, i) => {
             return (
               <div className="box">
                 <TextField margin="normal"
                   required
                   sx={{ bgcolor: 'background', borderRadius: 1 }}
-                  width='30%'
                   name="taskName"
                   placeholder="Task Name"
                   value={x.taskName}
                   onChange={e => handleInputChange(e, i)}
                 />
 
-                <FormControl sx={{ minWidth: 200, mt: 2, backgroundColor: 'background' }}>
+                <FormControl variant ="standard" sx={{ borderRadius: 0.5 , minWidth: 200, mt: 2,marginLeft: "0.5vw",  backgroundColor: 'background' }}>
                   <InputLabel id="duration">Duration (hours)</InputLabel>
                   <Select margin="normal"
                     required
@@ -175,7 +188,7 @@ function Task() {
                   </Select>
                 </FormControl>
 
-                <FormControl sx={{ minWidth: 200, mt: 2 }}>
+                <FormControl variant ="standard"  sx={{ borderRadius: 1 ,marginLeft: "0.5vw",  minWidth: 200, mt: 2, backgroundColor: 'background'}}>
                   <InputLabel id="difficulty">Difficulty </InputLabel>
                   <Select margin="normal"
                     required
@@ -193,7 +206,7 @@ function Task() {
                 </FormControl>
 
 
-                <FormControl sx={{ minWidth: 200, mt: 2 }}>
+                <FormControl variant ="standard" sx={{ borderRadius: 1 , marginLeft: "0.5vw", minWidth: 200, mt: 2 ,backgroundColor: 'background'}}>
                   <InputLabel id="enjoyment">Enjoyment </InputLabel>
                   <Select margin="normal"
                     required
@@ -210,10 +223,24 @@ function Task() {
                   </Select>
                 </FormControl>
 
-                {inputList.length !== 0 && <button
+                {/* Remove function  */}
+                {inputList.length !== 0 && <button style ={{backgroundColor: "#7c9c96", border: "none", borderRadius: 5, color: "white", 
+            padding: "1vw 2vw", textAlign: "center", textdecoration: "none", 
+            display: "inlineblock", marginLeft: "0.5vw",marginTop:"1.5vw", cursor: "default", marginTop:"0.1vw", fontsize: "16px"}}
                   onClick={() => handleRemoveClick(i)}>Remove</button>}
-                {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
-                {(inputList.length !== 0 && inputList.length - 1 !== i) && <button
+
+                  {/* Add button  */}
+                {inputList.length - 1 === i && 
+                <button style ={{backgroundColor: "#7c9c96", border: "none", borderRadius: 5, color: "white", 
+                padding: "1vw 2vw", textAlign: "center", textdecoration: "none", 
+                display: "inlineblock",  marginLeft: "0.5vw",marginTop:"1.5vw", cursor: "default", fontsize: "16px"}} 
+                onClick={handleAddClick}>Add</button>}
+
+               {/* complete button  */}
+                {(inputList.length !== 0 && inputList.length - 1 !== i) && 
+                <button style ={{backgroundColor: "#7c9c96", border: "none", borderRadius: 5, color: "white", 
+            padding: "1vw 2vw", textAlign: "center", textdecoration: "none", 
+            display: "inlineblock", marginLeft: "0.5vw", cursor: "default", marginTop:"1.5vw", fontsize: "16px"}}
                   onClick={() => handleRemoveClick(i)}>Complete</button>}
               </div>
             );
