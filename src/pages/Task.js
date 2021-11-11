@@ -14,7 +14,7 @@ import { printTaskList, sortedTasks } from "../functions/taskOptimization.js";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { getDrowsiness } from "../functions/drowsinessCalulation.js";
+import { getEnergyLevel, getDrowsiness } from "../functions/drowsinessCalulation.js";
 
 const theme = createTheme({
   palette: {
@@ -219,11 +219,16 @@ function Task() {
               bgcolor: "background",
               width: "80%",
               height: "10%",
-              mt: 4,
+              mt: 6,
             }}
           >
-            <Grid container spacing={3}>
-              <Grid item xs={8}>
+            <Grid container spacing={4}>
+              <Grid item xs={3}>
+                <Typography variant="h3">
+                  Energy Level: {(getEnergyLevel(user.EAR)*10).toFixed(2)}%
+                </Typography>
+              </Grid>
+              <Grid item xs={5}>
                 <Typography variant="h3">
                   Current Task: {inputList[0].taskName}
                 </Typography>
@@ -280,7 +285,7 @@ function Task() {
           {inputList.map((x, i) => {
             return (
               <div className="box">
-                <TextField  sx={{color: "#535E4B", marginLeft:"1vw"}} 
+                <TextField  sx={{color: "#535E4B", marginLeft:"1vw"}}
                   margin="normal"
                   required
                   sx={{ bgcolor: "background", borderRadius: 1 }}
