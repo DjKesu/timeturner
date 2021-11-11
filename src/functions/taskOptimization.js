@@ -4,28 +4,22 @@ export { sortedTasks, updateFactor, printTaskList }
 // and their "impact factor"
 const factors = {
   //"importance": 10,
-  "enjoyment": 5,
-  "difficulty": 5,
-  "drowsiness": 10
+  "enjoyment": 5,   // enjoyment range:  1-10
+  "difficulty": 5,  // difficulty range: 1-10
+  "drowsiness": 3   // drowsiness range: 1-10
 }
 
 const bufferTimeMins = 30;
-const drowsiness = 0;
+var drowsiness = 0;
 
 // version without importance
 function sortedTasks(taskList, drowsiness) {
-  console.log("Before");
-  printTaskList(taskList);
-
+  console.log("user drowsiness", drowsiness);
   drowsiness = drowsiness;
   if (taskList.length <= 1) {
     return taskList;
   }
   taskList.sort(comparePriority);
-
-  console.log();
-  console.log("After");
-  printTaskList(taskList);
   return taskList;
 }
 
@@ -81,6 +75,7 @@ function groupByImportance(taskList) {
 }
 
 function calculatePriority(enjoyment, difficulty) {
+  console.log("calculation part's drowsiness", drowsiness);
   return (
     enjoyment*factors["enjoyment"]
     - drowsiness*factors["drowsiness"] * difficulty*factors["difficulty"]

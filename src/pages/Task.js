@@ -14,6 +14,7 @@ import { printTaskList, sortedTasks } from "../functions/taskOptimization.js";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { getDrowsiness } from "../functions/drowsinessCalulation.js";
 
 const theme = createTheme({
   palette: {
@@ -118,9 +119,8 @@ function Task() {
   };
 
   const sortInputList = (e) => {
-    setInputList(sortedTasks(inputList));
-    console.log("New list:");
-    printTaskList(inputList);
+    console.log("ear read: ",user.EAR);
+    setInputList(sortedTasks(inputList, getDrowsiness(user.EAR)));
     refresh(e);
   };
 
@@ -175,7 +175,7 @@ function Task() {
             component="div"
             gutterBottom
           >
-            {user.name}'s To Do list
+            {user.name}'s To Do List
           </Typography>
           <Typography
             variant="h2"
