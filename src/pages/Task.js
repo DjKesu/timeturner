@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { printTaskList, sortedTasks } from "../functions/taskOptimization.js";
 
 const theme = createTheme({
   palette: {
@@ -35,6 +36,7 @@ const theme = createTheme({
 
 const currentDate = new Date().toISOString().substring(0, 10);
 function Task() {
+
   const [inputList, setInputList] = useState([{ taskName: "", duration: "", difficulty: "", enjoyment: "" }]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
@@ -90,6 +92,15 @@ function Task() {
     e = "";
   };
 
+  const sortInputList = (e) => {
+    e.preventDefault();
+    setInputList(sortedTasks(inputList));
+    console.log("New list:");
+    printTaskList(inputList);
+    updateDatabase();
+    e = "";
+  };
+
   //handleCompleteClick
 
   if (!currentUser) {
@@ -104,9 +115,9 @@ function Task() {
       const handleLogoutClick = async () => {
         // Implement logout stuff here
         await logout();
-
         window.location.href = "/";
       };
+
       return (
         <ThemeProvider theme={theme}>
           <Typography variant='h1' fontSize='title' component="div" gutterBottom>
@@ -128,7 +139,7 @@ function Task() {
           <Paper sx={{ mx: 'auto', elevation: 1, bgcolor: 'background', width: '80%', mt: 3 }}>
             <Title />
           </Paper>
-
+          {<button onClick={sortInputList}>Sort</button>}
           {inputList.map((x, i) => {
             return (
               <div className="box">
