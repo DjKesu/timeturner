@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext.js";
 import { Redirect } from "react-router-dom";
 import Typography from "@mui/material/Typography";
-import { TextField } from "@mui/material";
+import { FormControl, TextField } from "@mui/material";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -11,6 +11,9 @@ import Grid from "@mui/material/Grid";
 import { db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { printTaskList, sortedTasks } from "../functions/taskOptimization.js";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 const theme = createTheme({
   palette: {
@@ -35,6 +38,8 @@ const theme = createTheme({
 });
 
 const currentDate = new Date().toISOString().substring(0, 10);
+const hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+const oneToTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 function Task() {
 
   const [inputList, setInputList] = useState([{ taskName: "", duration: "", difficulty: "", enjoyment: "" }]);
@@ -148,40 +153,62 @@ function Task() {
                   sx={{ bgcolor: 'background', borderRadius: 1 }}
                   width='30%'
                   name="taskName"
-                  placeholder="Enter Task Name"
+                  placeholder="Task Name"
                   value={x.taskName}
                   onChange={e => handleInputChange(e, i)}
                 />
 
-                <TextField margin="normal"
-                  required
-                  sx={{ bgcolor: 'background', borderRadius: 1 }}
-                  width='30%'
-                  name="duration"
-                  placeholder="Duration (hours)"
-                  value={x.duration}
-                  onChange={e => handleInputChange(e, i)}
-                />
+                <FormControl sx={{ minWidth: 200, mt: 2 }}>
+                  <InputLabel id="duration">Duration (hours)</InputLabel>
+                  <Select margin="normal"
+                    required
+                    sx={{ bgcolor: 'background', borderRadius: 1 }}
+                    width='30%'
+                    name="duration"
+                    value={x.duration}
+                    onChange={e => handleInputChange(e, i)}
+                  >
+                    {hours.map((hour) => (
+                      <MenuItem key={hour} value={hour}>
+                        {hour}
+                      </MenuItem>))}
+                  </Select>
+                </FormControl>
 
-                <TextField margin="normal"
-                  required
-                  sx={{ bgcolor: 'background', borderRadius: 1 }}
-                  width='30%'
-                  name="difficulty"
-                  placeholder="Difficulty (1-10)"
-                  value={x.difficulty}
-                  onChange={e => handleInputChange(e, i)}
-                />
+                <FormControl sx={{ minWidth: 200, mt: 2 }}>
+                  <InputLabel id="difficulty">Difficulty </InputLabel>
+                  <Select margin="normal"
+                    required
+                    sx={{ bgcolor: 'background', borderRadius: 1 }}
+                    width='30%'
+                    name="difficulty"
+                    value={x.difficulty}
+                    onChange={e => handleInputChange(e, i)}
+                  >
+                    {oneToTen.map((num) => (
+                      <MenuItem key={num} value={num}>
+                        {num}
+                      </MenuItem>))}
+                  </Select>
+                </FormControl>
 
-                <TextField margin="normal"
-                  required
-                  sx={{ bgcolor: 'background', borderRadius: 1 }}
-                  width='30%'
-                  name="enjoyment"
-                  placeholder="Enjoyment level (1-10)"
-                  value={x.enjoyment}
-                  onChange={e => handleInputChange(e, i)}
-                />
+
+                <FormControl sx={{ minWidth: 200, mt: 2 }}>
+                  <InputLabel id="enjoyment">Enjoyment </InputLabel>
+                  <Select margin="normal"
+                    required
+                    sx={{ bgcolor: 'background', borderRadius: 1 }}
+                    width='30%'
+                    name="enjoyment"
+                    value={x.enjoyment}
+                    onChange={e => handleInputChange(e, i)}
+                  >
+                    {oneToTen.map((num) => (
+                      <MenuItem key={num} value={num}>
+                        {num}
+                      </MenuItem>))}
+                  </Select>
+                </FormControl>
 
                 {inputList.length !== 0 && <button
                   onClick={() => handleRemoveClick(i)}>Remove</button>}
