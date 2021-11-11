@@ -236,7 +236,7 @@ function Task() {
                 elevation: 1,
                 bgcolor: "background",
                 width: "80%",
-                height: "10%",
+                height: "10.7%",
                 mt: 6,
               }}
             >
@@ -251,7 +251,7 @@ function Task() {
                     Current Task: {inputList[0].taskName}
                   </Typography>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={1}>
                   {
                     <button
                       style={{
@@ -264,8 +264,8 @@ function Task() {
                         textdecoration: "none",
                         display: "inlineblock",
                         cursor: "default",
-                        marginLeft: "15.3vw",
-                        marginTop: "-30%",
+                        marginLeft: "14.9vw",
+                        marginTop: "-100vw",
                         fontsize: "16px",
                       }}
                       onClick={sortInputList}
