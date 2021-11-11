@@ -39,6 +39,8 @@ const theme = createTheme({
       fontFamily: "Segoe UI",
       fontWeight: "500",
       color: "#535E4B",
+      textAlign: "left",
+      marginLeft: "0.5vw",
     },
   },
 });
@@ -217,53 +219,62 @@ function Task() {
               bgcolor: "background",
               width: "80%",
               height: "10%",
-              mt: 2,
+              mt: 4,
             }}
           >
-            <Typography variant="h3" sx={{ marginRight: "57.4vw" }}>
-              Current Task: {inputList[0].taskName}
-            </Typography>
-            {
-              <button
-                style={{
-                  backgroundColor: "#7c9c96",
-                  border: "none",
-                  borderRadius: 5,
-                  color: "white",
-                  padding: "1vw 4vw",
-                  textAlign: "center",
-                  textdecoration: "none",
-                  display: "inlineblock",
-                  cursor: "default",
-                  marginLeft: "57.4vw",
-                  marginTop: "0.8vw",
-                  fontsize: "16px",
-                }}
-                onClick={sortInputList}
-              >
-                Sort
-              </button>
-            }
-            {
-              <button
-                style={{
-                  backgroundColor: "#7c9c96",
-                  border: "none",
-                  borderRadius: 5,
-                  color: "white",
-                  padding: "1vw 4vw",
-                  textAlign: "center",
-                  textdecoration: "none",
-                  display: "inlineblock",
-                  cursor: "default",
-                  marginLeft: "0.5vw",
-                  ontsize: "16px",
-                }}
-                onClick={refresh}
-              >
-                Refresh
-              </button>
-            }
+            <Grid container spacing={3}>
+              <Grid item xs={8}>
+                <Typography variant="h3">
+                  Current Task: {inputList[0].taskName}
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                {
+                  <button
+                    style={{
+                      backgroundColor: "#7c9c96",
+                      border: "none",
+                      borderRadius: 5,
+                      color: "white",
+                      padding: "1vw 4vw",
+                      textAlign: "center",
+                      textdecoration: "none",
+                      display: "inlineblock",
+                      cursor: "default",
+                      marginLeft: "3vw",
+                      marginTop: "-2vw",
+                      fontsize: "16px",
+                    }}
+                    onClick={sortInputList}
+                  >
+                    Sort
+                  </button>
+                }
+              </Grid>
+              <Grid item xs={2}>
+                {
+                  <button
+                    style={{
+                      backgroundColor: "#7c9c96",
+                      border: "none",
+                      borderRadius: 5,
+                      color: "white",
+                      padding: "1vw 4vw",
+                      textAlign: "center",
+                      textdecoration: "none",
+                      display: "inlineblock",
+                      cursor: "default",
+                      marginLeft: "-0.5vw",
+                      marginTop: "-2vw",
+                      ontsize: "16px",
+                    }}
+                    onClick={refresh}
+                  >
+                    Refresh
+                  </button>
+                }
+              </Grid>
+            </Grid>
           </Paper>
 
           {inputList.map((x, i) => {
