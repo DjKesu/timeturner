@@ -35,6 +35,14 @@ const theme = createTheme({
       fontWeight: "500",
       color: "#7c9c96",
     },
+    h3: {
+      fontSize: "1.5rem",
+      fontFamily: "Segoe UI",
+      fontWeight: "500",
+      color: "#535E4B",
+      textAlign: "left",
+      marginLeft: "0.5vw",
+    },
   },
 });
 
@@ -211,59 +219,68 @@ function Task() {
               bgcolor: "background",
               width: "80%",
               height: "10%",
-              mt: 2,
+              mt: 4,
             }}
           >
-            <Typography sx={{ marginRight: "57.4vw" }}>
-              Current Task: {inputList[0].taskName}
-            </Typography>
-            {
-              <button
-                style={{
-                  backgroundColor: "#7c9c96",
-                  border: "none",
-                  borderRadius: 5,
-                  color: "white",
-                  padding: "1vw 4vw",
-                  textAlign: "center",
-                  textdecoration: "none",
-                  display: "inlineblock",
-                  cursor: "default",
-                  marginLeft: "57.4vw",
-                  marginTop: "0.8vw",
-                  fontsize: "16px",
-                }}
-                onClick={sortInputList}
-              >
-                Sort
-              </button>
-            }
-            {
-              <button
-                style={{
-                  backgroundColor: "#7c9c96",
-                  border: "none",
-                  borderRadius: 5,
-                  color: "white",
-                  padding: "1vw 4vw",
-                  textAlign: "center",
-                  textdecoration: "none",
-                  display: "inlineblock",
-                  cursor: "default",
-                  marginLeft: "0.5vw",
-                  ontsize: "16px",
-                }}
-                onClick={refresh}
-              >
-                Refresh
-              </button>
-            }
+            <Grid container spacing={3}>
+              <Grid item xs={8}>
+                <Typography variant="h3">
+                  Current Task: {inputList[0].taskName}
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                {
+                  <button
+                    style={{
+                      backgroundColor: "#7c9c96",
+                      border: "none",
+                      borderRadius: 5,
+                      color: "white",
+                      padding: "1vw 4vw",
+                      textAlign: "center",
+                      textdecoration: "none",
+                      display: "inlineblock",
+                      cursor: "default",
+                      marginLeft: "3vw",
+                      marginTop: "-2vw",
+                      fontsize: "16px",
+                    }}
+                    onClick={sortInputList}
+                  >
+                    Sort
+                  </button>
+                }
+              </Grid>
+              <Grid item xs={2}>
+                {
+                  <button
+                    style={{
+                      backgroundColor: "#7c9c96",
+                      border: "none",
+                      borderRadius: 5,
+                      color: "white",
+                      padding: "1vw 4vw",
+                      textAlign: "center",
+                      textdecoration: "none",
+                      display: "inlineblock",
+                      cursor: "default",
+                      marginLeft: "-0.5vw",
+                      marginTop: "-2vw",
+                      ontsize: "16px",
+                    }}
+                    onClick={refresh}
+                  >
+                    Refresh
+                  </button>
+                }
+              </Grid>
+            </Grid>
           </Paper>
 
           {inputList.map((x, i) => {
             return (
               <div className="box">
-                <TextField
+                <TextField  sx={{color: "#535E4B", marginLeft:"1vw"}} 
                   margin="normal"
                   required
                   sx={{ bgcolor: "background", borderRadius: 1 }}
@@ -284,11 +301,11 @@ function Task() {
                     height: "55px",
                   }}
                 >
-                  <InputLabel id="duration">Duration (hours)</InputLabel>
+                  <InputLabel sx={{color: "#535E4B", marginLeft:"1vw"}} id="duration">Duration (hours)</InputLabel>
                   <Select
                     margin="normal"
                     required
-                    sx={{ borderRadius: 1, height: "55px" }}
+                    sx={{ borderRadius: 1,height: "55px" }}
                     width="30%"
                     name="duration"
                     value={x.duration}
@@ -319,7 +336,7 @@ function Task() {
                     height: "55px",
                   }}
                 >
-                  <InputLabel id="difficulty">Difficulty </InputLabel>
+                  <InputLabel sx={{color: "#535E4B", marginLeft:"1vw"}} id="difficulty">Difficulty </InputLabel>
                   <Select
                     margin="normal"
                     required
@@ -352,7 +369,7 @@ function Task() {
                     height: "55px",
                   }}
                 >
-                  <InputLabel id="enjoyment">Enjoyment </InputLabel>
+                  <InputLabel sx={{color: "#535E4B", marginLeft:"1vw"}} id="enjoyment">Enjoyment </InputLabel>
                   <Select
                     margin="normal"
                     required
