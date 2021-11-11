@@ -1,9 +1,11 @@
 export { sortedTasks, updateFactor, printTaskList }
 
+// factors that affect the priority of a task,
+// and their "impact factor"
 const factors = {
   //"importance": 10,
-  "enjoyment": 10,
-  "difficulty": 10,
+  "enjoyment": 5,
+  "difficulty": 5,
   "drowsiness": 10
 }
 
@@ -27,16 +29,6 @@ function sortedTasks(taskList, drowsiness) {
   return taskList;
 }
 
-function printTaskList(taskList) {
-  for (var i = 0; i < taskList.length; i++) {
-    console.log(
-      "task: ", taskList[i].taskName,
-      "difficulty: ", taskList[i].difficulty,
-      "enjoyment: ", taskList[i].enjoyment,
-      "duration: ", taskList[i].duration
-    );
-  }
-}
 // export function sortTasks(taskList, drowsiness, totalTime) { // totalTime: total time available to do all tasks
 //   drowsiness = drowsiness;
 
@@ -56,6 +48,19 @@ function printTaskList(taskList) {
 //     taskList.sort(comparePriority);
 //   }
 // }
+
+
+// prints the details of each task in the task list (for debugging p)
+function printTaskList(taskList) {
+  for (var i = 0; i < taskList.length; i++) {
+    console.log(
+      "task: ", taskList[i].taskName,
+      "difficulty: ", taskList[i].difficulty,
+      "enjoyment: ", taskList[i].enjoyment,
+      "duration: ", taskList[i].duration
+    );
+  }
+}
 
 function updateFactor(factor, newValue) {
   if ((factor in factors) && (typeof newValue ==='number')) {
@@ -83,6 +88,15 @@ function calculatePriority(enjoyment, difficulty) {
 }
 
 function comparePriority(a, b) {
+  // check if the all fields of the tasks have been entered
+  if (!isValidTask(a) && !isValidTask(b)) {
+    return 0;
+  } else if (!isValidTask(a) && isValidTask(b)) {
+    return 1;
+  } else if (isValidTask(a) && !isValidTask(b)) {
+    return -1;
+  }
+
   var aPriority = calculatePriority(a.enjoyment, a.difficulty, drowsiness);
   var bPriority = calculatePriority(b.enjoyment, b.difficulty, drowsiness);
   console.log(a.taskName, aPriority, b.taskName, bPriority);
@@ -92,6 +106,17 @@ function comparePriority(a, b) {
     return -1;
   }
   return 0;
+}
+
+function isValidTask(task) {
+  if (task === undefined) {
+    return false;
+  }
+  return (
+    (task.taskName !== undefined)
+    && (task.enjoyment !== undefined)
+    && (task.difficulty !== undefined)
+  );
 }
 
 function compareImportance(a, b) {
