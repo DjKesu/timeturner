@@ -215,7 +215,7 @@ function Task() {
             }}
           >
             <Typography sx={{ marginRight: "57.4vw" }}>
-              Current Task:
+              Current Task: {inputList[0].taskName}
             </Typography>
             {
               <button
