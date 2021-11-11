@@ -34,6 +34,12 @@ const theme = createTheme({
       fontWeight: "500",
       color: "#7c9c96",
     },
+    h3: {
+      fontSize: "1.5rem",
+      fontFamily: "Segoe UI",
+      fontWeight: "500",
+      color: "#535E4B",
+    },
   },
 });
 
@@ -214,7 +220,7 @@ function Task() {
               mt: 2,
             }}
           >
-            <Typography sx={{ marginRight: "57.4vw" }}>
+            <Typography variant="h3" sx={{ marginRight: "57.4vw" }}>
               Current Task: {inputList[0].taskName}
             </Typography>
             {
