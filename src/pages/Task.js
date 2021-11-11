@@ -98,10 +98,14 @@ function Task() {
   };
 
   const sortInputList = (e) => {
-    e.preventDefault();
     setInputList(sortedTasks(inputList));
     console.log("New list:");
     printTaskList(inputList);
+    refresh(e);
+  };
+
+  const refresh = (e) => {
+    e.preventDefault();
     updateDatabase();
     e = "";
   };
@@ -145,6 +149,7 @@ function Task() {
             <Title />
           </Paper>
           {<button onClick={sortInputList}>Sort</button>}
+          {<button onClick={refresh}>Refresh</button>}
           {inputList.map((x, i) => {
             return (
               <div className="box">
