@@ -263,7 +263,7 @@ function Task() {
           {inputList.map((x, i) => {
             return (
               <div className="box">
-                <TextField
+                <TextField  sx={{color: "#535E4B", marginLeft:"1vw"}} 
                   margin="normal"
                   required
                   sx={{ bgcolor: "background", borderRadius: 1 }}
@@ -284,11 +284,11 @@ function Task() {
                     height: "55px",
                   }}
                 >
-                  <InputLabel id="duration">Duration (hours)</InputLabel>
+                  <InputLabel sx={{color: "#535E4B", marginLeft:"1vw"}} id="duration">Duration (hours)</InputLabel>
                   <Select
                     margin="normal"
                     required
-                    sx={{ borderRadius: 1, height: "55px" }}
+                    sx={{ borderRadius: 1,height: "55px" }}
                     width="30%"
                     name="duration"
                     value={x.duration}
@@ -319,7 +319,7 @@ function Task() {
                     height: "55px",
                   }}
                 >
-                  <InputLabel id="difficulty">Difficulty </InputLabel>
+                  <InputLabel sx={{color: "#535E4B", marginLeft:"1vw"}} id="difficulty">Difficulty </InputLabel>
                   <Select
                     margin="normal"
                     required
@@ -352,7 +352,7 @@ function Task() {
                     height: "55px",
                   }}
                 >
-                  <InputLabel id="enjoyment">Enjoyment </InputLabel>
+                  <InputLabel sx={{color: "#535E4B", marginLeft:"1vw"}} id="enjoyment">Enjoyment </InputLabel>
                   <Select
                     margin="normal"
                     required
