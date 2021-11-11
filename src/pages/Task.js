@@ -159,10 +159,14 @@ function Task() {
           <Paper sx={{ mx: 'auto', elevation: 1, bgcolor: 'background', width: '80%', height:'10%', mt: 2 }}>
           {<button style ={{backgroundColor: "#7c9c96", border: "none", borderRadius: 5, color: "white", 
             padding: "1vw 4vw", textAlign: "center", textdecoration: "none", 
-            display: "inlineblock", marginRight: "69vw", cursor: "default", marginTop:"0.8vw", fontsize: "16px"}} 
+            display: "inlineblock", cursor: "default", marginLeft: "57.4vw" ,marginTop:"0.8vw",fontsize: "16px"}} 
             onClick={sortInputList}>Sort</button>}
+            {<button style ={{backgroundColor: "#7c9c96", border: "none", borderRadius: 5, color: "white", 
+            padding: "1vw 4vw", textAlign: "center", textdecoration: "none", 
+            display: "inlineblock", cursor: "default", marginLeft: "0.5vw",ontsize: "16px"}} 
+            onClick={refresh}>Refresh</button>}
           </Paper>
-          {<button onClick={refresh}>Refresh</button>}
+          
 
           {inputList.map((x, i) => {
             return (
@@ -230,23 +234,23 @@ function Task() {
 
                 {/* Remove function  */}
                 {inputList.length !== 0 && <button style ={{backgroundColor: "#7c9c96", border: "none", borderRadius: 5, color: "white", 
-            padding: "1vw 2vw", textAlign: "center", textdecoration: "none", 
-            display: "inlineblock", marginLeft: "0.5vw",marginTop:"1.5vw", cursor: "default", marginTop:"0.1vw", fontsize: "16px"}}
-                  onClick={() => handleRemoveClick(i)}>Remove</button>}
+            padding: "0.2vw 0.5vw", textAlign: "center", textdecoration: "none", 
+            display: "inlineblock", marginLeft: "0.5vw",marginTop:"1.5vw", cursor: "default", marginTop:"0.1vw", fontSize: "23px"}}
+                  onClick={() => handleRemoveClick(i)}>x</button>}
 
                   {/* Add button  */}
                 {inputList.length - 1 === i && 
                 <button style ={{backgroundColor: "#7c9c96", border: "none", borderRadius: 5, color: "white", 
-                padding: "1vw 2vw", textAlign: "center", textdecoration: "none", 
-                display: "inlineblock",  marginLeft: "0.5vw",marginTop:"1.5vw", cursor: "default", fontsize: "16px"}} 
-                onClick={handleAddClick}>Add</button>}
+                padding: "0.2vw 0.5vw", textAlign: "center", textdecoration: "none", 
+                display: "inlineblock",  marginLeft: "0.5vw",marginTop:"1.5vw", cursor: "default", fontSize: "23px"}} 
+                onClick={handleAddClick}>+</button>}
 
                {/* complete button  */}
                 {(inputList.length !== 0 && inputList.length - 1 !== i) && 
                 <button style ={{backgroundColor: "#7c9c96", border: "none", borderRadius: 5, color: "white", 
-            padding: "1vw 2vw", textAlign: "center", textdecoration: "none", 
-            display: "inlineblock", marginLeft: "0.5vw", cursor: "default", marginTop:"1.5vw", fontsize: "16px"}}
-                  onClick={() => handleRemoveClick(i)}>Complete</button>}
+            padding: "0.2vw 0.5vw", textAlign: "center", textdecoration: "none", 
+            display: "inlineblock", marginLeft: "0.5vw", cursor: "default", marginTop:"1.5vw", fontSize: "23px"}}
+                  onClick={() => handleRemoveClick(i)}>✓</button>}
               </div>
             );
           })}
