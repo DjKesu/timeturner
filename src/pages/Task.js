@@ -19,6 +19,8 @@ import {
   getDrowsiness,
 } from "../functions/drowsinessCalulation.js";
 
+//creates main colour/font theme 
+//main colours =#7c9c96, #E9E6E2, #C1C2AD, #535E4B
 const theme = createTheme({
   palette: {
     bg: "#C1C2AD",
@@ -49,19 +51,29 @@ const theme = createTheme({
   },
 });
 
+//stores the current date to display under the user's Task List  
 const currentDate = new Date().toISOString().substring(0, 10);
+
+//hours is the valid input to the durration field 
 const hours = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
   23, 24,
 ];
+
+//oneToTen is the valid input to the enjoyment and difficulty fields of the task list
 const oneToTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 function Task() {
+  //creates an input list so that the user can input various tasks
   const [inputList, setInputList] = useState([
     { taskName: "", duration: "", difficulty: "", enjoyment: "" },
   ]);
+
+  //stores the users current state 
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
   const { currentUser } = useAuth();
+  //connects to the database
   useEffect(() => {
     const fetchData = async () => {
       console.log("fetching data");
@@ -133,13 +145,14 @@ function Task() {
     updateDatabase();
     e = "";
   };
-
+  //handles the sort function 
   const sortInputList = (e) => {
     console.log("ear read: ", user.EAR);
     setInputList(sortedTasks(inputList, getDrowsiness(user.EAR)));
     refresh(e);
   };
 
+  //handles the refresh button 
   const refresh = (e) => {
     e.preventDefault();
     updateDatabase();
@@ -165,6 +178,7 @@ function Task() {
 
         return (
           <ThemeProvider theme={theme}>
+            {/* log out button  */}
             {
               <button
                 style={{
@@ -187,6 +201,7 @@ function Task() {
               </button>
             }
 
+           {/* web title  */}
             <Typography
               variant="h1"
               fontSize="title"
@@ -195,6 +210,8 @@ function Task() {
             >
               {user.name}'s To Do List
             </Typography>
+
+            {/* current date */}
             <Typography
               variant="h2"
               fontSize="title"
@@ -299,7 +316,7 @@ function Task() {
                 {/* </Grid> */}
               </Grid>
             </Paper>
-
+          
             {inputList.map((x, i) => {
               return (
                 <div className="box">
