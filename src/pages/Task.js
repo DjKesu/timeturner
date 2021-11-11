@@ -246,8 +246,8 @@ function Task() {
                       textdecoration: "none",
                       display: "inlineblock",
                       cursor: "default",
-                      marginLeft: "3vw",
-                      marginTop: "-2vw",
+                      marginLeft: "15.3vw",
+                      marginTop: "-30%",
                       fontsize: "16px",
                     }}
                     onClick={sortInputList}
@@ -256,8 +256,8 @@ function Task() {
                   </button>
                 }
               </Grid>
-              <Grid item xs={2}>
-                {
+              {/* <Grid item xs={2}> */}
+                {/* {
                   <button
                     style={{
                       backgroundColor: "#7c9c96",
@@ -277,8 +277,8 @@ function Task() {
                   >
                     Refresh
                   </button>
-                }
-              </Grid>
+                } */}
+              {/* </Grid> */}
             </Grid>
           </Paper>
 
