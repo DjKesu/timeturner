@@ -147,7 +147,7 @@ function Task() {
                   onChange={e => handleInputChange(e, i)}
                 />
 
-                <FormControl sx={{ minWidth: 200, mt: 2 }}>
+                <FormControl sx={{ minWidth: 200, mt: 2, backgroundColor: 'background' }}>
                   <InputLabel id="duration">Duration (hours)</InputLabel>
                   <Select margin="normal"
                     required
@@ -158,7 +158,7 @@ function Task() {
                     onChange={e => handleInputChange(e, i)}
                   >
                     {hours.map((hour) => (
-                      <MenuItem key={hour} value={hour}>
+                      <MenuItem key={hour} value={hour} sx={{ bgcolor: 'background' }}>
                         {hour}
                       </MenuItem>))}
                   </Select>
@@ -175,7 +175,7 @@ function Task() {
                     onChange={e => handleInputChange(e, i)}
                   >
                     {oneToTen.map((num) => (
-                      <MenuItem key={num} value={num}>
+                      <MenuItem key={num} value={num} sx={{ bgcolor: 'background' }}>
                         {num}
                       </MenuItem>))}
                   </Select>
@@ -193,7 +193,7 @@ function Task() {
                     onChange={e => handleInputChange(e, i)}
                   >
                     {oneToTen.map((num) => (
-                      <MenuItem key={num} value={num}>
+                      <MenuItem key={num} value={num} sx={{ bgcolor: 'background' }}>
                         {num}
                       </MenuItem>))}
                   </Select>
