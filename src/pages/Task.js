@@ -50,18 +50,18 @@ const theme = createTheme({
     },
   },
 });
+//initializing variables
+  //stores the current date to display under the user's Task List  
+  const currentDate = new Date().toISOString().substring(0, 10);
 
-//stores the current date to display under the user's Task List  
-const currentDate = new Date().toISOString().substring(0, 10);
+  //hours is the valid input to the durration field 
+  const hours = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+    23, 24,
+  ];
 
-//hours is the valid input to the durration field 
-const hours = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 24,
-];
-
-//oneToTen is the valid input to the enjoyment and difficulty fields of the task list
-const oneToTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  //oneToTen is the valid input to the enjoyment and difficulty fields of the task list
+  const oneToTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function Task() {
   //creates an input list so that the user can input various tasks
