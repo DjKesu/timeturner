@@ -1,4 +1,5 @@
 import * as React from "react";
+/*imports for material ui components */
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,13 +13,14 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "../styles/Login.css";
-import { login } from "../contexts/AuthContext";
 
+/*imports for db authorization */
 import { getAuth } from "firebase/auth";
-//auth
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
+import { login } from "../contexts/AuthContext";
+
 //import state things
 import { useState } from "react";
 
@@ -48,6 +50,8 @@ export default function SignInSide() {
   const [loading, setLoading] = useState(false);
   const auth = getAuth();
 
+  /*Account authorization on login attempt 
+  /* redirects to task pages if credentials are valid */
   async function handleSubmit(event) {
     setError("");
     setLoading(true);
@@ -69,45 +73,30 @@ export default function SignInSide() {
 
   return (
     <ThemeProvider theme={theme}>
+
       <Grid container component="main" sx={{ height: "100vh" }}>
+
         <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
+        {/* left side of grid is sign in image */}
+        <Grid item
+          xs={false} sm={4} md={7}
           sx={{
-            backgroundImage: "url(lake.jpeg)",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) => "#C1C2AD",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+            backgroundImage: "url(lake.jpeg)", backgroundRepeat: "no-repeat", backgroundColor: (t) => "#C1C2AD",
+            backgroundSize: "cover", backgroundPosition: "center",
+          }} />
+
+        {/* right side of grid (login fields)*/}
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <Box
-            sx={{
-              my: 8,
-              mx: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
+
+          <Box sx={{ my: 8, mx: 4, display: "flex", flexDirection: "column", alignItems: "center", }} >
+
             <Avatar sx={{ m: 1, bgcolor: "#535E4B" }}></Avatar>
-            <Typography
-              component="h1"
-              variant="h5"
-              sx={{ m: 1, color: "#535E4B" }}
-            >
+
+            <Typography component="h1" variant="h5" sx={{ m: 1, color: "#535E4B" }}>
               Login
             </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
-            >
+
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 sx={{ color: "#535E4B" }}
                 margin="normal"
@@ -128,40 +117,33 @@ export default function SignInSide() {
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
-              />
+                autoComplete="current-password" />
+
               <FormControlLabel
                 control={<Checkbox value="remember" />}
                 sx={{ color: "#535E4B" }}
-                label="Remember me"
-              />
+                label="Remember me" />
+
               <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2, backgroundColor: (t) => "#535E4B" }}
-              >
+                type="submit" fullWidth variant="contained"
+                sx={{ mt: 3, mb: 2, backgroundColor: (t) => "#535E4B" }}>
                 Login
               </Button>
+
               <Grid container>
+
                 <Grid item xs>
-                  <Link
-                    href="#"
-                    variant="body2"
-                    sx={{ m: 1, color: "#535E4B" }}
-                  >
+                  <Link href="#" variant="body2" sx={{ m: 1, color: "#535E4B" }}>
                     Forgot password?
                   </Link>
                 </Grid>
-                <Grid item>
-                  <Link
-                    href="/Signup"
-                    variant="body2"
-                    sx={{ m: 1, color: "#535E4B" }}
-                  >
+
+                <Grid item> {/* Redirect to  signup if they dont have an account */}
+                  <Link href="/Signup" variant="body2" sx={{ m: 1, color: "#535E4B" }}>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
+
               </Grid>
             </Box>
           </Box>
